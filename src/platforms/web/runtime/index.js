@@ -47,6 +47,7 @@ Vue.prototype.$mount = function (
 
 // devtools global hook
 /* istanbul ignore next */
+//控制台提示使用vue-devtools  和  vue版本
 if (inBrowser) {
   setTimeout(() => {
     if (config.devtools) {

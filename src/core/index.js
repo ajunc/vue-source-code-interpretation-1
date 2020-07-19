@@ -4,6 +4,7 @@ import { isServerRendering } from 'core/util/env'
 import { FunctionalRenderContext } from 'core/vdom/create-functional-component'
 
 // 初始化全局api
+// 包括defineReactive、set、delete、nextTick、Use、Mixin、Extend、AssetRegisters等
 initGlobalAPI(Vue)
 
 Object.defineProperty(Vue.prototype, '$isServer', {
