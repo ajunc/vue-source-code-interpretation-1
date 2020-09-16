@@ -14,7 +14,8 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "dev": "rollup -w -c scripts/config.js --sourcemap --environment TARGET:web-full-dev", //web-full-dev 指明输出的是移动端完整开发板，未压缩，适合学习
+    "annotation": "web-full-dev 指明输出的是移动端完整开发板，未压缩，适合学习",
+    "dev": "rollup -w -c scripts/config.js --sourcemap --environment TARGET:web-full-dev", 
     "dev:cjs": "rollup -w -c scripts/config.js --environment TARGET:web-runtime-cjs-dev",
     "dev:esm": "rollup -w -c scripts/config.js --environment TARGET:web-runtime-esm",
     "dev:test": "karma start test/unit/karma.dev.config.js",

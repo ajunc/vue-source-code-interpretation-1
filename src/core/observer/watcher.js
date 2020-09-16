@@ -171,6 +171,7 @@ export default class Watcher {
     } else if (this.sync) {
       this.run()
     } else {
+      // 排队
       queueWatcher(this)
     }
   }

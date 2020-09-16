@@ -57,7 +57,7 @@ export function initMixin (Vue: Class<Component>) {
     callHook(vm, 'beforeCreate') // 组件创建之前钩子
     initInjections(vm) // 注入祖辈传递的数据
     initState(vm) // 重要：组件数据初始化，包括props/data/methods/computed/watch
-    initProvide(vm) // resolve provide after data/props
+    initProvide(vm) // resolve provide after data/props   为啥要先inject，再provide？ 继承
     callHook(vm, 'created')
 
     /* istanbul ignore if */

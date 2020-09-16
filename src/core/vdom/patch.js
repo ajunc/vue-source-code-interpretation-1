@@ -166,6 +166,8 @@ export function createPatchFunction (backend) {
         }
       }
 
+      // 这一步就是把一个普通元素的 vnode 创建真实 dom 节点的过程
+      // 实际调用的就是 document.createElement
       // 如果是保留标签div等
       vnode.elm = vnode.ns
         ? nodeOps.createElementNS(vnode.ns, tag)
@@ -203,9 +205,11 @@ export function createPatchFunction (backend) {
         creatingElmInVPre--
       }
     } else if (isTrue(vnode.isComment)) {
+      // 如果是一个注释节点就创建一个注释插入即可
       vnode.elm = nodeOps.createComment(vnode.text)
       insert(parentElm, vnode.elm, refElm)
     } else {
+      // 如果是一个 文本节点 就调用 createTextNode 创建文本插入
       vnode.elm = nodeOps.createTextNode(vnode.text)
       insert(parentElm, vnode.elm, refElm)
     }
@@ -278,6 +282,8 @@ export function createPatchFunction (backend) {
     insert(parentElm, vnode.elm, refElm)
   }
 
+  // 如果有子节点就插入到子节点后面，否则就使用 appendChild 放到最后
+  // 也就是说执行完这一步实际的情况是 你的 div#root 还存在，尚未删除
   function insert (parent, elm, ref) {
     if (isDef(parent)) {
       if (isDef(ref)) {
@@ -417,10 +423,12 @@ export function createPatchFunction (backend) {
     let newStartIdx = 0
     let oldEndIdx = oldCh.length - 1
     let oldStartVnode = oldCh[0]
+    // 四个游标对应节点
     let oldEndVnode = oldCh[oldEndIdx]
     let newEndIdx = newCh.length - 1
     let newStartVnode = newCh[0]
     let newEndVnode = newCh[newEndIdx]
+
     let oldKeyToIdx, idxInOld, vnodeToMove, refElm
 
     // removeOnly is a special flag used only by <transition-group>
@@ -583,10 +591,10 @@ export function createPatchFunction (backend) {
     if (isUndef(vnode.text)) {
       // 双方都有孩子
       if (isDef(oldCh) && isDef(ch)) {
-        // 重排
+        // 重排  深度优先、比孩子
         if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)
       } else if (isDef(ch)) {
-        // 新节点有孩子
+        // 新节点有孩子  老节点没有孩子
         if (process.env.NODE_ENV !== 'production') {
           checkDuplicateKeys(ch)
         }
@@ -600,7 +608,7 @@ export function createPatchFunction (backend) {
         nodeOps.setTextContent(elm, '')
       }
     } else if (oldVnode.text !== vnode.text) {
-      // 双方都是文本
+      // 双方都是文本  双方都没孩子
       nodeOps.setTextContent(elm, vnode.text)
     }
     if (isDef(data)) {

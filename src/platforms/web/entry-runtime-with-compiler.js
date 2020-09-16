@@ -14,13 +14,13 @@ const idToTemplate = cached(id => {
   return el && el.innerHTML
 })
 
-// 扩展$mount方法
+// 扩展$mount方法, 针对web平台
 const mount = Vue.prototype.$mount
 Vue.prototype.$mount = function (
-  el?: string | Element,
+  el?: string | Element, //Flow语法，就是JavaScript的静态类型检查工具
   hydrating?: boolean
 ): Component {
-  el = el && query(el)
+  el = el && query(el) //宿主元素
 
   /* istanbul ignore if */
   if (el === document.body || el === document.documentElement) {
@@ -30,7 +30,12 @@ Vue.prototype.$mount = function (
     return this
   }
 
-  // 用户配置选项
+  // 用户配置选项，格式如下：
+  // {
+  //   el: '#demo',
+  //   // template: '<div>template</div>',
+  //   data:{foo:'foo'}
+  // }
   const options = this.$options
   // resolve template/el and convert to render function
   // 获取渲染函数

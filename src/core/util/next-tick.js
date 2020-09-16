@@ -86,13 +86,13 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
   }
 }
 
-// 此处nextTick就是熟悉的Vue.nextTick
+// 此处nextTick就是熟悉的Vue.nextTick、$nextTick
 export function nextTick (cb?: Function, ctx?: Object) {
   let _resolve
   callbacks.push(() => {
     if (cb) {
       try {
-        // 调用传入回调
+        // 调用传入的回调
         cb.call(ctx)
       } catch (e) {
         handleError(e, ctx, 'nextTick')
@@ -101,6 +101,7 @@ export function nextTick (cb?: Function, ctx?: Object) {
       _resolve(ctx)
     }
   })
+  // 如果不是挂起状态
   if (!pending) {
     pending = true
     // 异步执行

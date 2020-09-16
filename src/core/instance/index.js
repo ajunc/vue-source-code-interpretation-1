@@ -18,9 +18,9 @@ function Vue (options) {
 
 // 实例方法的初始化
 initMixin(Vue) // 混入_init()
-stateMixin(Vue) // $set/$delete/$watch
-eventsMixin(Vue) // $emit/$on/$off/$once
-lifecycleMixin(Vue) // $_update/$forceUpdate
+stateMixin(Vue) // 状态相关实例方法: $set/$delete/$watch
+eventsMixin(Vue) // 事件相关方法: $emit/$on/$off/$once
+lifecycleMixin(Vue) // 生命周期相关方法: $_update/$forceUpdate/$destroy
 renderMixin(Vue)
 
 export default Vue
